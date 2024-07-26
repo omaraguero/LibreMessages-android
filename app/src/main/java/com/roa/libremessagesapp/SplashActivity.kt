@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.roa.libremessagesapp.databinding.ActivitySplashBinding
+import com.roa.libremessagesapp.utils.FirebaseUtil
 
 class SplashActivity : AppCompatActivity() {
 
@@ -16,7 +17,11 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Handler().postDelayed({
-            startActivity(Intent(this, LoginPhoneNumberActivity::class.java))
+            if(FirebaseUtil.isLoggedIn()){
+                startActivity(Intent(this, MainActivity::class.java))
+            }else{
+                startActivity(Intent(this, LoginPhoneNumberActivity::class.java))
+            }
             finish()
         }, 1000)
     }

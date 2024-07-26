@@ -20,13 +20,13 @@ import java.util.concurrent.TimeUnit
 
 class LoginOtpActivity : AppCompatActivity() {
 
-    lateinit var phoneNumber: String
+    private lateinit var phoneNumber: String
     var timeoutSeconds: Long = 60L
     lateinit var verificationCode: String
-    lateinit var resendingToken: PhoneAuthProvider.ForceResendingToken
+    lateinit var resendingToken: ForceResendingToken
 
     private lateinit var binding: ActivityLoginOtpBinding
-    var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +39,8 @@ class LoginOtpActivity : AppCompatActivity() {
         sendOtp(phoneNumber, false)
 
         binding.loginNextBtn.setOnClickListener{
-            var enteredOtp = binding.loginOtp.text.toString()
-            var credential = PhoneAuthProvider.getCredential(verificationCode, enteredOtp)
+            val enteredOtp = binding.loginOtp.text.toString()
+            val credential = PhoneAuthProvider.getCredential(verificationCode, enteredOtp)
             signIn(credential)
             //setInProgress(true)
         }
@@ -51,7 +51,7 @@ class LoginOtpActivity : AppCompatActivity() {
 
     }
 
-    fun sendOtp(phoneNumber: String, isResend: Boolean){
+    private fun sendOtp(phoneNumber: String, isResend: Boolean){
         startResendTimer()
         setInProgress(true)
 
@@ -119,8 +119,8 @@ class LoginOtpActivity : AppCompatActivity() {
 
     private fun startResendTimer() {
         binding.resendOtpTextview.isEnabled = false
-        var timer = Timer()
-        timer.scheduleAtFixedRate(object : TimerTask() {
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
             override fun run() {
                 timeoutSeconds--
                 binding.resendOtpTextview.text = "Resend OTP in $timeoutSeconds seconds"

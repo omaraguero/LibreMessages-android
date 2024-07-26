@@ -13,7 +13,7 @@ import com.roa.libremessagesapp.databinding.ActivitySplashBinding
 class LoginPhoneNumberActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginPhoneNumberBinding
 
-    lateinit var countryCodePicker: CountryCodePicker
+    private lateinit var countryCodePicker: CountryCodePicker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

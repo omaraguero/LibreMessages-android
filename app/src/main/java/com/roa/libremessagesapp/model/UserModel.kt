@@ -1,0 +1,9 @@
+package com.roa.libremessagesapp.model
+
+import com.google.firebase.Timestamp
+
+data class UserModel(
+    var phone: String? = null,
+    var username: String? = null,
+    var createdTimestamp: Timestamp? = null
+)

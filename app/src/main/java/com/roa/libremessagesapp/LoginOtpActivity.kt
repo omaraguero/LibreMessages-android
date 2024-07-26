@@ -42,7 +42,11 @@ class LoginOtpActivity : AppCompatActivity() {
             var enteredOtp = binding.loginOtp.text.toString()
             var credential = PhoneAuthProvider.getCredential(verificationCode, enteredOtp)
             signIn(credential)
-            setInProgress(true)
+            //setInProgress(true)
+        }
+
+        binding.resendOtpTextview.setOnClickListener{
+            sendOtp(phoneNumber, true)
         }
 
     }
@@ -115,7 +119,7 @@ class LoginOtpActivity : AppCompatActivity() {
 
     private fun startResendTimer() {
         binding.resendOtpTextview.isEnabled = false
-        lateinit var timer: Timer
+        var timer = Timer()
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 timeoutSeconds--

@@ -1,6 +1,7 @@
 package com.roa.libremessagesapp.utils
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -24,6 +25,11 @@ public class FirebaseUtil {
             }
             return false
         }
+
+        fun allUserCollectionReference(): CollectionReference {
+            return FirebaseFirestore.getInstance().collection("users")
+        }
+
     }
 
 }

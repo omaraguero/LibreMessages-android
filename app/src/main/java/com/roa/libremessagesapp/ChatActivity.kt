@@ -22,6 +22,7 @@ class ChatActivity : AppCompatActivity() {
         otherUser = AndroidUtil.getUserModelFromIntent(intent)
 
         binding.backBtn.setOnClickListener {
+
             onBackPressedDispatcher.onBackPressed()
         }
 

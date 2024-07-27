@@ -38,7 +38,6 @@ class SearchUserActivity : AppCompatActivity() {
     }
 
     fun setupSearchRecyclerView(searchTerm: String){
-
         var query = FirebaseUtil.allUserCollectionReference()
             .whereGreaterThanOrEqualTo("username", searchTerm)
 
@@ -60,17 +59,15 @@ class SearchUserActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        if(adapter!=null){
-            adapter!!.stopListening()
-        }
+        adapter?.stopListening()
     }
 
 
     override fun onResume() {
         super.onResume()
-        if(adapter!=null){
-            adapter!!.startListening()
-        }
+        adapter?.startListening()
+        binding.searchUserRecyclerView.adapter?.notifyDataSetChanged()
     }
+
 
 }

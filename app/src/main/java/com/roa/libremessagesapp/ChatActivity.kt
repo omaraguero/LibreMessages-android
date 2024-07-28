@@ -2,7 +2,12 @@ package com.roa.libremessagesapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Query
+import com.roa.libremessagesapp.adapter.ChatRecyclerAdapter
 import com.roa.libremessagesapp.databinding.ActivityChatBinding
 import com.roa.libremessagesapp.model.ChatMessageModel
 import com.roa.libremessagesapp.model.ChatroomModel
@@ -19,6 +24,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatBinding
     private lateinit var chatroomId: String
     private var chatroomModel: ChatroomModel? = null
+
+    private var adapter: ChatRecyclerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +54,30 @@ class ChatActivity : AppCompatActivity() {
 
 
         getOrCreateChatroomModel()
+        setupChatRecyclerView()
+    }
+
+    private fun setupChatRecyclerView() {
+        val query = FirebaseUtil.getChatroomMessageReference(chatroomId)
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+
+        val options = FirestoreRecyclerOptions.Builder<ChatMessageModel>()
+            .setQuery(query, ChatMessageModel::class.java).build()
+
+        adapter = ChatRecyclerAdapter(options ,applicationContext)
+        val manager = LinearLayoutManager(this)
+        manager.reverseLayout = true
+
+        binding.chatRecyclerView.layoutManager = manager
+        binding.chatRecyclerView.adapter = adapter
+        adapter!!.startListening()
+        adapter!!.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                super.onItemRangeInserted(positionStart, itemCount)
+                binding.chatRecyclerView.smoothScrollToPosition(0)
+            }
+        })
+
     }
 
     private fun sendMessageToUser(message: String) {

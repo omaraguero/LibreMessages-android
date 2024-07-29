@@ -15,6 +15,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.roa.libremessagesapp.model.UserModel
 import com.roa.libremessagesapp.utils.AndroidUtil
 import com.roa.libremessagesapp.utils.FirebaseUtil
@@ -39,7 +40,7 @@ class ProfileFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 result.data?.data?.let { uri ->
                     selectedImageUri = uri
-                    //AndroidUtil.setProfilePic(context, uri, profilePic)
+                    AndroidUtil.setProfilePic(context, uri, profilePic)
                 }
             }
         }
@@ -78,7 +79,7 @@ class ProfileFragment : Fragment() {
              */
         }
 
-        /*
+
         profilePic.setOnClickListener {
             ImagePicker.with(this)
                 .cropSquare()
@@ -88,8 +89,6 @@ class ProfileFragment : Fragment() {
                     imagePickLauncher.launch(intent)
                 }
         }
-
-         */
 
         return view
     }
@@ -104,14 +103,13 @@ class ProfileFragment : Fragment() {
         setInProgress(true)
         updateToFirestore()
 
-        /*
+
         selectedImageUri?.let {
             FirebaseUtil.getCurrentProfilePicStorageRef().putFile(it).addOnCompleteListener {
                 updateToFirestore()
             }
         } ?: updateToFirestore()
 
-         */
     }
 
     private fun updateToFirestore() {
@@ -128,7 +126,7 @@ class ProfileFragment : Fragment() {
     private fun getUserData() {
         setInProgress(true)
 
-        /*
+
         FirebaseUtil.getCurrentProfilePicStorageRef().downloadUrl.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 task.result?.let { uri ->
@@ -136,8 +134,6 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
-
-         */
 
         FirebaseUtil.currentUserDetails().get().addOnCompleteListener { task ->
             setInProgress(false)

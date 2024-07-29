@@ -1,6 +1,7 @@
 package com.roa.libremessagesapp
 
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +37,16 @@ class ChatActivity : AppCompatActivity() {
         chatroomId = FirebaseUtil.getChatroomId(
             FirebaseUtil.currentUserId().toString(), otherUser!!.userId.toString()
         )
+
+        val imageView: ImageView = findViewById(R.id.profile_pic_image_view)
+
+        FirebaseUtil.getOtherProfilePicStorageRef(otherUser!!.userId).downloadUrl
+            .addOnCompleteListener { t ->
+                if (t.isSuccessful) {
+                    val uri = t.result
+                    AndroidUtil.setProfilePic(this, uri, imageView)
+                }
+            }
 
         binding.backBtn.setOnClickListener {
 

@@ -32,7 +32,7 @@ class RecentChatRecyclerAdapter(
 
 
                     otherUserModel?.let {
-                        /*
+
                         FirebaseUtil.getOtherProfilePicStorageRef(it.userId).downloadUrl
                             .addOnCompleteListener { t ->
                                 if (t.isSuccessful) {
@@ -41,7 +41,7 @@ class RecentChatRecyclerAdapter(
                                 }
                             }
 
-                         */
+
 
                         holder.usernameText.text = it.username
                         holder.lastMessageText.text = if (lastMessageSentByMe) {

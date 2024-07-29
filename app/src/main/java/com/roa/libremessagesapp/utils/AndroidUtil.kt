@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.roa.libremessagesapp.model.UserModel
 
 
@@ -31,13 +33,13 @@ public class AndroidUtil{
             return userModel
         }
 
-        /*
+
         fun setProfilePic(context: Context?, imageUri: Uri?, imageView: ImageView?) {
-            Glide.with(context).load(imageUri).apply(RequestOptions.circleCropTransform())
-                .into(imageView)
+            Glide.with(context!!).load(imageUri).apply(RequestOptions.circleCropTransform())
+                .into(imageView!!)
         }
 
-         */
+
 
     }
 }

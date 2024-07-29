@@ -84,6 +84,7 @@ class ChatActivity : AppCompatActivity() {
 
         chatroomModel!!.lastMessageTimestamp = Timestamp.now()
         chatroomModel!!.lastMessageSenderId = FirebaseUtil.currentUserId()
+        chatroomModel!!.lastMessage = message
         FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
 
         val chatMessageModel = ChatMessageModel(message, FirebaseUtil.currentUserId(), Timestamp.now())

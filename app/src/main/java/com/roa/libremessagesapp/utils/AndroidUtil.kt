@@ -2,6 +2,8 @@ package com.roa.libremessagesapp.utils
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.widget.ImageView
 import android.widget.Toast
 import com.roa.libremessagesapp.model.UserModel
 
@@ -28,6 +30,14 @@ public class AndroidUtil{
             //userModel.setFcmToken(intent.getStringExtra("fcmToken"))
             return userModel
         }
+
+        /*
+        fun setProfilePic(context: Context?, imageUri: Uri?, imageView: ImageView?) {
+            Glide.with(context).load(imageUri).apply(RequestOptions.circleCropTransform())
+                .into(imageView)
+        }
+
+         */
 
     }
 }

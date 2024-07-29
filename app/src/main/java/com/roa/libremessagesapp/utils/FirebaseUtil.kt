@@ -64,6 +64,10 @@ public class FirebaseUtil {
             return SimpleDateFormat("HH:MM").format(timestamp.toDate())
         }
 
+        fun logout() {
+            FirebaseAuth.getInstance().signOut()
+        }
+
 
     }
 

@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.messaging.FirebaseMessaging
 import com.roa.libremessagesapp.model.UserModel
 import com.roa.libremessagesapp.utils.AndroidUtil
 import com.roa.libremessagesapp.utils.FirebaseUtil
@@ -62,21 +63,19 @@ class ProfileFragment : Fragment() {
         }
 
         logoutBtn.setOnClickListener {
-            /*
+
             FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-
-             */
                     FirebaseUtil.logout()
                     val intent = Intent(context, SplashActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     }
                     startActivity(intent)
-            /*
+
                 }
             }
 
-             */
+
         }
 
 

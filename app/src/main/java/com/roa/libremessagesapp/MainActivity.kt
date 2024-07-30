@@ -1,10 +1,14 @@
 package com.roa.libremessagesapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.roa.libremessagesapp.databinding.ActivityLoginPhoneNumberBinding
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import com.roa.libremessagesapp.databinding.ActivityMainBinding
+import com.roa.libremessagesapp.utils.FirebaseUtil
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +41,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.bottomNavigation.selectedItemId = R.id.menu_chat
+        getFCMToken()
 
+    }
+
+    private fun getFCMToken() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener { task: Task<String?> ->
+            if (task.isSuccessful) {
+                val token = task.result
+                FirebaseUtil.currentUserDetails().update("fcmToken", token)
+            }
+        }
     }
 }

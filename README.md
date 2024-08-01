@@ -11,3 +11,6 @@ This app can:
 - Receive notifications
 - Authenticate users
 Feel free to use it in your projects! :)
+
+[![Watch the video](https://youtu.be/qf-STpYEk1U)
+

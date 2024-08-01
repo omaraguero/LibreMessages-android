@@ -106,7 +106,6 @@ class ChatActivity : AppCompatActivity() {
                     sendNotification(message)
                 }
             }
-
     }
 
     fun getOrCreateChatroomModel() {
@@ -131,16 +130,29 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun sendNotification(message: String) {
-        val otherUserId = otherUser?.userId ?: return
-        val otherUserFcmToken = otherUser?.fcmToken ?: return
-        val otherUserName = otherUser?.username ?: return
+        FirebaseUtil.currentUserDetails().get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val currentUser = task.result?.toObject(UserModel::class.java)
+                currentUser?.let { user ->
+                    try {
 
-        val title = "New Message from $otherUserName"
-        val body = message
+                        val otherUserId = user.userId
+                        val otherUserFcmToken = otherUser?.fcmToken
+                        val otherUserName = user.username
 
-        val sendNotification = SendNotification(otherUserFcmToken, title, body, this, otherUserId)
-        sendNotification.sendNotifications()
+                        val title = "New Message from $otherUserName"
+                        val body = message
+
+                        val sendNotification =
+                            SendNotification(otherUserFcmToken!!, title, body, this, otherUserId!!)
+                        sendNotification.sendNotifications()
+                    } catch (e: Exception) {
+                        e.printStackTrace() // Maneja la excepción adecuadamente
+                    }
+
+
+                }
+            }
+        }
     }
-
-
 }

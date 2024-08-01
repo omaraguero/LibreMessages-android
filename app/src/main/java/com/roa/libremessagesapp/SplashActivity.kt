@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.StrictMode
 import com.roa.libremessagesapp.databinding.ActivitySplashBinding
 import com.roa.libremessagesapp.model.UserModel
 import com.roa.libremessagesapp.utils.AndroidUtil
@@ -46,6 +47,9 @@ class SplashActivity : AppCompatActivity() {
                 }
                 finish()
             }, 1000)
+            ////
+            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
         }
     }
 }

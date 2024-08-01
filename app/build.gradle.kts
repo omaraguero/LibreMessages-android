@@ -37,6 +37,10 @@ android {
     viewBinding {
         enable = true
     }
+
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+    }
 }
 
 dependencies {
@@ -50,6 +54,7 @@ dependencies {
     implementation("com.google.firebase:firebase-functions:21.0.0")
     implementation("com.google.firebase:firebase-storage-ktx:21.0.0")
     implementation("com.google.firebase:firebase-messaging:24.0.0")
+    implementation("com.android.volley:volley:1.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
@@ -66,4 +71,12 @@ dependencies {
     implementation("com.github.dhaval2404:imagepicker:2.1")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.1") // OkHttp
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
+    //implementation("com.google.firebase:firebase-admin:9.1.1")
+
 }

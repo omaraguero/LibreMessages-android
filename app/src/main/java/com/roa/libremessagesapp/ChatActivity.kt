@@ -57,7 +57,7 @@ class ChatActivity : AppCompatActivity() {
 
         binding.messageSendBtn.setOnClickListener {
             val message = binding.chatMessageInput.text.toString().trim()
-            if(message.isEmpty()){
+            if (message.isEmpty()) {
                 return@setOnClickListener
             }
             sendMessageToUser(message)
@@ -75,7 +75,7 @@ class ChatActivity : AppCompatActivity() {
         val options = FirestoreRecyclerOptions.Builder<ChatMessageModel>()
             .setQuery(query, ChatMessageModel::class.java).build()
 
-        adapter = ChatRecyclerAdapter(options ,applicationContext)
+        adapter = ChatRecyclerAdapter(options, applicationContext)
         val manager = LinearLayoutManager(this)
         manager.reverseLayout = true
 
@@ -98,12 +98,13 @@ class ChatActivity : AppCompatActivity() {
         chatroomModel!!.lastMessage = message
         FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel!!)
 
-        val chatMessageModel = ChatMessageModel(message, FirebaseUtil.currentUserId(), Timestamp.now())
+        val chatMessageModel =
+            ChatMessageModel(message, FirebaseUtil.currentUserId(), Timestamp.now())
         FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     binding.chatMessageInput.setText("")
-                    //sendNotification(message)
+                    sendNotification(message)
                 }
             }
 
@@ -117,7 +118,10 @@ class ChatActivity : AppCompatActivity() {
                     //first time chat
                     chatroomModel = ChatroomModel(
                         chatroomId,
-                        Arrays.asList(FirebaseUtil.currentUserId(), otherUser!!.userId) as List<String>?,
+                        Arrays.asList(
+                            FirebaseUtil.currentUserId(),
+                            otherUser!!.userId
+                        ) as List<String>?,
                         Timestamp.now(),
                         ""
                     )
@@ -126,4 +130,18 @@ class ChatActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun sendNotification(message: String) {
+        val otherUserId = otherUser?.userId ?: return
+        val otherUserFcmToken = otherUser?.fcmToken ?: return
+        val otherUserName = otherUser?.username ?: return
+
+        val title = "New Message from $otherUserName"
+        val body = message
+
+        val sendNotification = SendNotification(otherUserFcmToken, title, body, this)
+        sendNotification.sendNotifications()
+    }
+
+
 }

@@ -92,7 +92,6 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun sendMessageToUser(message: String) {
-
         chatroomModel!!.lastMessageTimestamp = Timestamp.now()
         chatroomModel!!.lastMessageSenderId = FirebaseUtil.currentUserId()
         chatroomModel!!.lastMessage = message
@@ -139,7 +138,7 @@ class ChatActivity : AppCompatActivity() {
         val title = "New Message from $otherUserName"
         val body = message
 
-        val sendNotification = SendNotification(otherUserFcmToken, title, body, this)
+        val sendNotification = SendNotification(otherUserFcmToken, title, body, this, otherUserId)
         sendNotification.sendNotifications()
     }
 

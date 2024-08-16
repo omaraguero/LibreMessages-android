@@ -15,8 +15,7 @@ Feel free to use it in your projects! :)
 
 [Watch the preview in HD here](https://www.youtube.com/watch?v=qf-STpYEk1U)
 
-![1](1.gif)
-![2](2.gif)
+![1](preview.gif)
 
 
 
